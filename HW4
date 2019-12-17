@@ -1,274 +1,293 @@
-#include <stdio.h>
-
-int main(void)
-{
-    int n[3];  
-    printf ("Please enter the receipts for three employees: ");
-    for (int i=0; i<3; i++){
-        scanf("%d", &n[i]);
-    }
-    
- char type_1[n[0]],type_2[n[1]],type_3[n[2]];
- float amt_1[n[0]],amt_2[n[1]], amt_3[n[2]];
- float totalA=0, totalB=0, totalC=0, sum1=0, sum2=0,sum3=0;
-
-
- printf("Please enter the %d receipt type and amounts for the #1 employee: \n", n[0]);
- for (int i=0; i<n[0]; i++){
-   scanf("%s",&type_1[i]);      
-   scanf("%f", &amt_1[i]);
- }
-
- for (int i=0; i<n[0]; i++){
-   sum1 += amt_1[i];
-   if (type_1[i]=='a' || type_1[i]=='A'){
-       totalA += amt_1[i];
-   }
-   if (type_1[i]=='b' || type_1[i]=='B'){
-       totalB += amt_1[i];
-   }
-   if (type_1[i]=='c' || type_1[i]=='C'){
-       totalC += amt_1[i];
-   }
- }
-
-
- printf("Please enter the %d receipt type and amounts for the #2 employee: \n", n[1]);
- for (int i=0; i<n[1]; i++){
-   scanf("%s",&type_2[i]);     
-   scanf("%f", &amt_2[i]);
- }
- for (int i=0; i<n[2]; i++){
-   sum2 += amt_2[i];
-   if (type_2[i]=='a' || type_2[i]=='A'){
-       totalA += amt_2[i];
-   }
-   if (type_2[i]=='b' || type_2[i]=='B'){
-       totalB += amt_2[i];
-   }
-   if (type_2[i]=='c' || type_2[i]=='C'){
-       totalC += amt_2[i];
-   }
- }
-
-
- printf("Please enter the %d receipt type and amounts for the #3 employee: \n", n[2]);
- for (int i=0; i<n[2]; i++){
-   scanf("%s",&type_3[i]);    
-   scanf("%f", &amt_3[i]);
- }
- for (int i=0; i<n[2]; i++){
-   sum3 += amt_3[i];
-   if (type_3[i]=='a' || type_3[i]=='A'){
-       totalA += amt_3[i];
-   }
-   if (type_3[i]=='b' || type_3[i]=='B'){
-       totalB += amt_3[i];
-   }
-   if (type_3[i]=='c' || type_3[i]=='C'){
-       totalC += amt_3[i];
-   }
- }
- 
- printf("Employee ID      Amount\n");
- printf("     1           %.2f\n", sum1);
- printf("     2           %.2f\n", sum2);
- printf("     3           %.2f\n\n", sum2);
- printf("Receipt Type     Amount\n");
- printf("     A           %.2f\n", totalA);
- printf("     B           %.2f\n", totalB);
- printf("     C           %.2f\n", totalC);
+#1
 
 
 
+#include<stdio.h>
+#include<stdlib.h>
+#define NumberOfEmployee 3
 
- return 0;
- 
- 
- -------------------------------------------------------------------------------------------------------------------------------------
- 
- 
- 
- #2
- 
-#include <stdio.h>
-
-int main()
-{
-  int n;
-  int r,c;
-  printf("Enter how many matrixs do you have: ");
-  scanf("%d", &n);
-  int sum[n];
-  for (int i=0; i<n; i++){
-      printf("Enter how many rows and columns are in %d", i+1);
-      (i==0)? printf("st "):(i==1)? printf("nd "): (i==2)? printf("rd "):printf("th ");
-      printf ("matrix: ");
-      scanf("%d%d", &r, &c);
-
-      int a[r][c];
-      int total=0;
-      printf("Enter each element for %d", i+1);
-      (i==0)? printf("st "):(i==1)? printf("nd "): (i==2)? printf("rd "):printf("th ");
-       printf ("matrix: \n");
-
-      for (int x=0; x<r; x++){
-          for (int y=0; y<c; y++){
-              scanf("%d", &a[x][y]);
-              if (x==0 || y==0 ||x==r-1||y==c-1) {
-                  total += a[x][y];
-              }
-          }
-      }
-
-      sum[i]=total;
-  }
-
-  for (int i=0; i<n; i++){
-      printf("%d\n", sum[i]);
-  }
-  return 0;
+struct rec {
+char * type;
+int * amount;
+int sum;
+int EmployeeId;
+int receipts;
+};
+void main() {
+int i, j;
+int Aval = 0, Bval = 0, Cval = 0;
+struct rec arrEmp[3];
+/*input all employee receipts and details*/
+for (i = 0; i < NumberOfEmployee; i++) {
+/*input Employee ID*/
+printf("Enter Employee Id: ");
+scanf("%d", & arrEmp[i].EmployeeId);
+  
+/*input total number of receipts*/
+printf("Enter total Number of receipts: ");
+scanf("%d", &arrEmp[i].receipts);
+  
+/*create dynamic array for type of receipt and amount of receipt*/
+arrEmp[i].type = (char * ) malloc(sizeof(char) * arrEmp[i].receipts);
+arrEmp[i].amount = (int * ) malloc(sizeof(int) * arrEmp[i].receipts);
+arrEmp[i].sum = 0;
+  
+/*store type of receipt in char array""type" and amount of receipt in integer array "amount" */
+for (j = 0; j < arrEmp[i].receipts; j++) {
+printf("Enter Type of Receipts: ");
+scanf(" %c", & arrEmp[i].type[j]);
+printf("Enter amount: ");
+scanf("%d", & arrEmp[i].amount[j]);
+/*adding all amount of receipts to sum*/
+arrEmp[i].sum = arrEmp[i].sum + arrEmp[i].amount[j];
+}
+}
+printf("\nEmployee Id Total Amount\n");
+for (i = 0; i < NumberOfEmployee; i++) {
+printf("\n%4d \t\t %4d", arrEmp[i].EmployeeId, arrEmp[i].sum);
 }
 
+for (int i = 0; i < NumberOfEmployee; i++) {
+for (int j = 0; j < arrEmp[i].receipts; j++) {
+/*for each receipt check the receipt type and add respective amount in "amount" array to Aval or Bval or C val*/
+if (arrEmp[i].type[j] == 'A')
+Aval = Aval + arrEmp[i].amount[j];
+else if (arrEmp[i].type[j] == 'B')
+Bval = Bval + arrEmp[i].amount[j];
+else if (arrEmp[i].type[j] == 'C')
+Cval = Cval + arrEmp[i].amount[j];
+}
+free(arrEmp[i].type);
+free(arrEmp[i].amount);
+}
+printf("\n\nTypes of Receipts Total Amount\n");
 
+printf("\n\tA %14d\n\tB %14d\n\tC %14d\n", Aval, Bval, Cval);
 
- -------------------------------------------------------------------------------------------------------------------------------------
- 
- 
- #3
- 
- 
- #include <stdio.h>
-
-int main()
-{
-    int r, c;
-    printf("Enter the size of row and column: ");
-    scanf ("%d%d", &r, &c);
-
-    int a[r][c];
-    printf("Enter each of the element in the matrix: \n");
-    for (int i=0; i<r; i++){
-        for (int j=0; j<c; j++){
-            scanf("%d", &a[i][j]);
-        }
-    }
-
-    int n;
-    n=r+c;
-
-    printf("Output: \n");
-    for(int x=0; x<=n; x++){
-        for (int i=0; i<r; i++){
-            for (int j=0; j<c; j++){
-               if (i+j == x){
-                   printf("%d ", a[i][j]);
-               }
-            }
-        }
-    }
-    return 0;
 }
 
 
 
 
--------------------------------------------------------------------------------------------------------------------------------------
- 
- 
- 
-#4
- 
- 
-#include <stdio.h>
 
-void sort ();
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+#2
+
+
+#include<stdio.h>
+
 
 int main()
 {
-    int n;
-    float th;
-    printf("Enter how many patients currently there are, and threshold\nvalue of ICU: ");
-    scanf("%d %f", &n, &th);
-    int id[n];
-    float condition[n];
+int m, n, sum ,num_matrix,count=0;
+printf("\nEnter how many matrix you have : ");
+scanf("%d",&num_matrix);
+while(num_matrix>count)
+{
+sum=0;
+printf("\nEnter how many rows and columns in matrix %d: ",(count+1));
+scanf("%d %d",&m,&n);
+int i, j;
+int mat[m][n];
+printf("\nEnter each element for matrix %d \n",(count+1));
+for(i=0;i<m;i++)
+{
+for(j=0;j<n;j++)
+scanf("%d",&mat[i][j]);
+}
 
-    printf("Enter each patient’s ID and condition indicator: \n");
 
-    for (int i=0; i<n; i++){
-        scanf("%d",&id[i]);
-        scanf("%f", &condition[i]);
-    }
-    
-    sort (condition, id, n);
-    printf("Outputs: \n");
+for(i=0;i<m;i++)
+{
+for(j=0;j<n;j++)
+{
+if (i ==0 || j ==0 || i == n-0 ||j == n-1)
+{
+sum = sum + mat[i][j];
+}
+}
+}
+printf("\nSum of boundary elements of matrix %d is %d\n",(count+1), sum);
+count++;
+}
+}
 
-    for (int i=0; i<n; i++){
-        if (condition[i]>th){
-            printf("%03d %.2f\n", id[i], condition[i]);
-        }
-    }
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#3
+
+
+
+
+Please note that some ONLINE COMPLIER may NOT have the <conio.h>, make sure the complier has it
+
+
+#include<stdio.h>
+#include<conio.h> 
+
+
+void printMatrix( int r,int c, int mat[][c] )
+{
+int k;
+/* First for loop will print till last column and its diagonal like in example last column value 7 and its diagonal 8 and 9 */
+   for ( k = 0; k < c; k++)
+   {
+
+       int row = 0, col = k;
+       while (col >= 0 && row<r) // boundry condition that column and row value are not beyond the user input
+       {
+       printf("%d ",mat[row][col]); // printing elements
+           row++, col--;
+       }
+   }
+
+int j;
+/* Remaing element during first loop are from row index 1 .. in example it is 10, 11,12 */
+   for ( j = 1; j < c; j++) {
+
+
+       int col = c - 1, row = j;
+       while (row < r) { // boundary condition that row value is not beyond user input r
+           printf("%d ",mat[row][col]); // printing elements
+           row++, col--;
+       }
+   }
+}
+
+int main()
+{
+int r,c; // row an column
+printf("Enter the size of row and column :");
+scanf("%d %d",&r,&c);
+printf("Enter Each Element in the matrix:\n");
+int mat[r][c]; // 2-D array for storing elements
+int i,j;
+for(i=0;i<r;i++)
+{
+    for(j=0;j<c;j++)
+    {
+    scanf("%d",&mat[i][j]);  
+}
+}
+printf("Display The Matrix in Zigzag Order\n");
+   printMatrix(r,c,mat); // function call to print matrix in diagonal order
    return 0;
 }
- 
-void sort (float condition[], int id[], int n){
-	 for (int i=1; i<n; i++){
-		 for (int j=0; j<n-i; j++){
-			float temp1;
-			int temp2;
-			if (condition[j]<condition[j+1]){
-				temp1 = condition[j];
-				condition[j] = condition[j+1];
-				condition[j+1] = temp1;
-               
-				temp2 = id[j];
-				id[j] = id[j+1];
-				id[j+1] = temp2;
-			}
-		 }
-	 }
- } 
- 
 
 
--------------------------------------------------------------------------------------------------------------------------------------
- 
- 
- 
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#4
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//struct
+typedef struct Patient
+{
+   char id[4];
+   float condition;
+}patient;
+
+
+int main()
+{
+   int n=2;
+   float thresold;
+   printf("Enter how many patients currently there are, and thresold value of ICU: \n");
+   scanf("%d %f", &n, &thresold);
+//create array and fill it with input
+   patient p[n];
+   for(int i=0; i<n; i++)
+   {
+       scanf("%s", &p[i].id);
+       scanf("%f", &p[i].condition);
+   }
+//bubble sort in decreasing order
+   for(int i=0; i<n-1; i++)
+       for(int j=0; j<n-i-1; j++)
+           if(p[j].condition < p[j+1].condition)
+           {
+               patient temp = p[j];
+               p[j] = p[j+1];
+               p[j+1] = temp;
+           }
+
+//print output
+   int i=0;
+   while(i<n && p[i].condition > thresold)
+   {
+       printf("%s %0.1f\n", p[i].id, p[i].condition);
+       i++;
+   }
+
+}
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
 #5
 
 
 #include <stdio.h>
-
+#include <string.h>
 int main()
 {
- char a[1000];
- printf("Enter one of strand in a molecule of DNA: : \n");
+char strand[50]; // 'strand' is the character array to store the input strand
+int i, error=0; // 'error' variable is used to store a flag value to check any other input character other than A, T, C, G.
 
- gets(a);
- int i=0;
- printf("Output:\nComplementary strand: \n");
- while (a[i]!='\0')
- {
-    if (a[i]=='A')
-    {
-      a[i]='T';
-    }
-    else if (a[i]=='T')
-    {
-      a[i]='A';
-    }
-    else if (a[i]=='G')
-    {
-      a[i]='C';
-    }
-    else if (a[i]=='C')
-    {
-      a[i]='G';
-    }
-    printf("%c", a[i]);
-    i++;
- }
+//If any other character is in input string then the 'error' variable is set to 1.
+printf("Enter one of strand in a molecule of DNA:\n ");
+scanf("%s", strand); // Read the input strand from keyboard to variable 'strand'.
+for(i=0;i<strlen(strand); i++){ // Use for loop to change each charecter in the input strand.
 
- return 0;
+// Iterate from 0 to length of input strand -1, because the last character in the strand is '\0' (by default) to indicate the end of the string.
+if(strand[i] == 'A') // If the charecter is 'A' then
+strand[i] = 'T'; // change 'A' by 'T'.
+  
+else if(strand[i] == 'T') // If the charecter is 'T' then
+strand[i] = 'A'; // change 'T' by 'A'.
+  
+else if(strand[i] == 'C') // If the charecter is 'C' then
+strand[i] = 'G'; // change 'C' by 'G'.
+  
+else if(strand[i] == 'G') // If the charecter is 'G' then
+strand[i] = 'C'; // change 'G' by 'C'.
+else error = 1; // Set error to 1 if input charecter is not in A, T, G, C
+}
+if(error == 1) // Check error is 1 or not
+printf("Input strand is not in proper format"); // print "Input strand is not in proper format", if error is 1.
+else
+printf("Complementary strand:\n %s.", strand); // print value of strand, if error is 0.
+return 0;
 }
