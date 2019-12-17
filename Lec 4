@@ -14,7 +14,8 @@ int sum;
 int EmployeeId;
 int receipts;
 };
-void main() {
+
+int main() {
 int i, j;
 int Aval = 0, Bval = 0, Cval = 0;
 struct rec arrEmp[3];
