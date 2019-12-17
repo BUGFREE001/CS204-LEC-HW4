@@ -1,4 +1,200 @@
 
+#1
+
+
+
+#include<stdio.h>
+
+#include<stdlib.h>
+#define NumberOfEmployee 3
+struct rec {
+char * type;
+int * amount;
+int sum;
+int EmployeeId;
+int receipts;
+};
+void main() {
+int i, j;
+int Aval = 0, Bval = 0, Cval = 0;
+struct rec arrEmp[3];
+/*input all employee receipts and details*/
+for (i = 0; i < NumberOfEmployee; i++) {
+/*input Employee ID*/
+printf("Enter Employee Id: ");
+scanf("%d", & arrEmp[i].EmployeeId);
+  
+/*input total number of receipts*/
+printf("Enter total Number of receipts: ");
+scanf("%d", &arrEmp[i].receipts);
+  
+/*create dynamic array for type of receipt and amount of receipt*/
+arrEmp[i].type = (char * ) malloc(sizeof(char) * arrEmp[i].receipts);
+arrEmp[i].amount = (int * ) malloc(sizeof(int) * arrEmp[i].receipts);
+arrEmp[i].sum = 0;
+  
+/*store type of receipt in char array""type" and amount of receipt in integer array "amount" */
+for (j = 0; j < arrEmp[i].receipts; j++) {
+printf("Enter Type of Receipts: ");
+scanf(" %c", & arrEmp[i].type[j]);
+printf("Enter amount: ");
+scanf("%d", & arrEmp[i].amount[j]);
+/*adding all amount of receipts to sum*/
+arrEmp[i].sum = arrEmp[i].sum + arrEmp[i].amount[j];
+}
+}
+printf("\nEmployee Id Total Amount\n");
+for (i = 0; i < NumberOfEmployee; i++) {
+printf("\n%4d \t\t %4d", arrEmp[i].EmployeeId, arrEmp[i].sum);
+}
+
+for (int i = 0; i < NumberOfEmployee; i++) {
+for (int j = 0; j < arrEmp[i].receipts; j++) {
+/*for each receipt check the receipt type and add respective amount in "amount" array to Aval or Bval or C val*/
+if (arrEmp[i].type[j] == 'A')
+Aval = Aval + arrEmp[i].amount[j];
+else if (arrEmp[i].type[j] == 'B')
+Bval = Bval + arrEmp[i].amount[j];
+else if (arrEmp[i].type[j] == 'C')
+Cval = Cval + arrEmp[i].amount[j];
+}
+free(arrEmp[i].type);
+free(arrEmp[i].amount);
+}
+printf("\n\nTypes of Receipts Total Amount\n");
+
+printf("\n\tA %14d\n\tB %14d\n\tC %14d\n", Aval, Bval, Cval);
+
+}
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+#2
+
+
+#include<stdio.h>
+
+
+int main()
+{
+int m, n, sum ,num_matrix,count=0;
+printf("\nEnter how many matrix you have : ");
+scanf("%d",&num_matrix);
+while(num_matrix>count)
+{
+sum=0;
+printf("\nEnter how many rows and columns in matrix %d: ",(count+1));
+scanf("%d %d",&m,&n);
+int i, j;
+int mat[m][n];
+printf("\nEnter each element for matrix %d \n",(count+1));
+for(i=0;i<m;i++)
+{
+for(j=0;j<n;j++)
+scanf("%d",&mat[i][j]);
+}
+
+
+for(i=0;i<m;i++)
+{
+for(j=0;j<n;j++)
+{
+if (i ==0 || j ==0 || i == n-0 ||j == n-1)
+{
+sum = sum + mat[i][j];
+}
+}
+}
+printf("\nSum of boundary elements of matrix %d is %d\n",(count+1), sum);
+count++;
+}
+}
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#3
+
+
+
+
+Please note that some ONLINE COMPLIER may NOT have the <conio.h>, make sure the complier has it
+
+
+#include<stdio.h>
+#include<conio.h> 
+
+
+void printMatrix( int r,int c, int mat[][c] )
+{
+int k;
+/* First for loop will print till last column and its diagonal like in example last column value 7 and its diagonal 8 and 9 */
+   for ( k = 0; k < c; k++)
+   {
+
+       int row = 0, col = k;
+       while (col >= 0 && row<r) // boundry condition that column and row value are not beyond the user input
+       {
+       printf("%d ",mat[row][col]); // printing elements
+           row++, col--;
+       }
+   }
+
+int j;
+/* Remaing element during first loop are from row index 1 .. in example it is 10, 11,12 */
+   for ( j = 1; j < c; j++) {
+
+
+       int col = c - 1, row = j;
+       while (row < r) { // boundary condition that row value is not beyond user input r
+           printf("%d ",mat[row][col]); // printing elements
+           row++, col--;
+       }
+   }
+}
+
+int main()
+{
+int r,c; // row an column
+printf("Enter the size of row and column :");
+scanf("%d %d",&r,&c);
+printf("Enter Each Element in the matrix:\n");
+int mat[r][c]; // 2-D array for storing elements
+int i,j;
+for(i=0;i<r;i++)
+{
+    for(j=0;j<c;j++)
+    {
+    scanf("%d",&mat[i][j]);  
+}
+}
+printf("Display The Matrix in Zigzag Order\n");
+   printMatrix(r,c,mat); // function call to print matrix in diagonal order
+   return 0;
+}
+
+
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
